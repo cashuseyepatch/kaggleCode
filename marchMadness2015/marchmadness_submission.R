@@ -24,3 +24,22 @@ mySubmission$pred <- sapply(sample_submission$id, compute.pred)
 
 write.csv(mySubmission, file="mySubmission.csv", row.names=FALSE)
 
+##  I'm going to pick teams to win by the following order: 1) Gonzaga
+##  2)Kentucky 3)Wisconsin 4)Villanova 5)Duke for my second submission.  
+##  These teams will be assigned 
+##  .99 probabilities of winning against all teams seeded below or my picks
+##  below them.  
+
+second <- mySubmission
+
+for (i in c(1181, 1437, 1458, 1246, 1211)) {
+
+second$pred <- ifelse(substr(second$id, 6, 9) == i, 
+                              .99, second$pred)
+
+second$pred <- ifelse(substr(second$id, 11, 14) == i,
+                              .01, second$pred)
+
+}
+
+write.csv(second, file="second.csv", row.names=FALSE)
